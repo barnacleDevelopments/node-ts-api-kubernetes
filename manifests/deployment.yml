@@ -16,4 +16,4 @@ spec:
       - name: nodetsapi
         image: devdeveloperregistry.azurecr.io/node-ts-api:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 3000

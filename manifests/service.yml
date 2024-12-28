@@ -5,6 +5,7 @@ metadata:
 spec:
     type: LoadBalancer
     ports:
-    - port: 8080 
+    - port: 8080
+      targetPort: 3000
     selector:
         app: node-ts-api

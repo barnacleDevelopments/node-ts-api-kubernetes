@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: nodetsapi 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodetsapi
+  template:
+    metadata:
+      labels:
+        app: nodetsapi 
+    spec:
+      containers:
+        - name: nodetsapi 
+          image: devdeveloperregistry.azurecr.io/nodetsapi
+          ports:
+          - containerPort: 8080

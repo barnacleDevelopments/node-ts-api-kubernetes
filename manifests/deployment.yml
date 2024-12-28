@@ -1,11 +1,11 @@
-apiversion : apps/v1
-kind: deployment
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: node-ts-api
 spec:
   replicas: 1
   selector:
-    matchlabels:
+    matchLabels:
       app: node-ts-api
   template:
     metadata:
@@ -13,7 +13,7 @@ spec:
         app: node-ts-api
     spec:
       containers:
-        - name: nodetsapi
-          image: devdeveloperregistry.azurecr.io/node-ts-api
-          ports:
-          - containerport: 8080
+      - name: nodetsapi
+        image: devdeveloperregistry.azurecr.io/node-ts-api:latest
+        ports:
+        - containerPort: 8080

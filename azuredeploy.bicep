@@ -23,6 +23,9 @@ param containerRegistryName string = 'devdeveloperregistry'
 resource containerRegistry 'Microsoft.ContainerRegistry/registries@2022-12-01' = {
   name: containerRegistryName
   location: location
+  identity: {
+    type: 'SystemAssigned'
+  }
   sku: {
     name: 'Basic'
   }
@@ -58,11 +61,13 @@ resource devDeveloperCluster 'Microsoft.ContainerService/managedClusters@2024-09
   }
 }
 
-// Assign AcrPull role to AKS cluster's managed identity
-// Reference: https://learn.microsoft.com/en-us/azure/templates/microsoft.authorization/2022-04-01/roleassignments?pivots=deployment-language-bicep
-resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(devDeveloperCluster.id, containerRegistry.id, 'AcrPull')
+resource aksToAcrRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(devDeveloperCluster.identity.principalId, containerRegistry.id, 'acrpull')
   scope: containerRegistry
+  dependsOn: [
+    devDeveloperCluster
+    containerRegistry
+  ]
   properties: {
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '7f951dda-4ed3-4680-a7ca-43fe172d538d') // AcrPull role ID
     principalId: devDeveloperCluster.identity.principalId

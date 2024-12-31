@@ -19,7 +19,7 @@ variables:
   imagePullSecret: 'devdeveloperregistry9220-auth'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  vmImageName: 'Personal Laptop'
 
 
 stages:

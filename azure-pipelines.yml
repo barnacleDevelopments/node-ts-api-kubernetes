@@ -14,7 +14,7 @@ variables:
   dockerRegistryServiceConnection: 'f908d294-cc22-4ef7-9658-c29d3df43b12'
   imageRepository: 'barnacledevelopmentskubernetestest'
   containerRegistry: 'devdeveloperregistry.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: '**/Dockerfile.dev'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'devdeveloperregistry8892c7e1-auth'
 

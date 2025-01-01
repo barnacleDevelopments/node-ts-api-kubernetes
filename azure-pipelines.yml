@@ -12,7 +12,7 @@ variables:
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'f908d294-cc22-4ef7-9658-c29d3df43b12'
-  imageRepository: 'barnacledevelopmentskubernetestest'
+  imageRepository: 'node-ts-api'
   containerRegistry: 'devdeveloperregistry.azurecr.io'
   dockerfilePath: '**/Dockerfile.dev'
   tag: '$(Build.BuildId)'

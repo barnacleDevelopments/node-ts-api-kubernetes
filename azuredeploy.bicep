@@ -55,28 +55,4 @@ resource devDeveloperCluster 'Microsoft.ContainerService/managedClusters@2024-09
   }
 }
 
-// Reference: https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers?pivots=deployment-language-bicep
-resource devDeveloperSqlServer 'Microsoft.Sql/servers@2022-05-01-preview' = {
-  name: sqlServerName
-  location: location
-  identity: {
-    type: 'SystemAssigned'
-  }
-  properties: {
-    minimalTlsVersion: '1.2'
-    publicNetworkAccess: 'Disabled'
-  }
-}
-
-// Reference: https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers/databases?pivots=deployment-language-bicep
-resource sqlDB 'Microsoft.Sql/servers/databases@2022-05-01-preview' = {
-  parent: devDeveloperSqlServer
-  name: sqlDBName
-  location: location
-  sku: {
-    name: 'Basic'
-    tier: 'Basic'
-  }
-}
-
 output aksPrincipalId string = devDeveloperCluster.identity.principalId

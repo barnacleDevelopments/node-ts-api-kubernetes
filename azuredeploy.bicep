@@ -6,10 +6,6 @@ param clusterName string = 'devdeveloper-aks-cluster'
 param nodeSize string = 'Standard_A2_v2'
 param nodeCount int = 1
 
-// SQL SERVER + DB
-param sqlServerName string = 'devdeveloper-sql-server'
-param sqlDBName string = 'devdeveloper-sql-db'
-
 // Container Registry
 param containerRegistryName string = 'devdeveloperregistry'
 

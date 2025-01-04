@@ -9,51 +9,57 @@ param nodeCount int = 1
 // SQL SERVER + DB
 param sqlServerName string = 'devdeveloper-sql-server'
 param sqlDBName string = 'devdeveloper-sql-db'
+@description('The administrator username of the SQL logical server.')
+param sqlAdministratorLogin string
+
+@description('The administrator password of the SQL logical server.')
+@secure()
+param sqlAdministratorLoginPassword string
 
 // Container Registry
 param containerRegistryName string = 'devdeveloperregistry'
 
 // Reference: https://learn.microsoft.com/en-us/azure/templates/microsoft.containerregistry/registries?pivots=deployment-language-bicep
-resource devDeveloperContainerRegistry 'Microsoft.ContainerRegistry/registries@2022-12-01' = {
-  name: containerRegistryName
-  location: location
-  identity: {
-    type: 'SystemAssigned'
-  }
-  sku: {
-    name: 'Basic'
-  }
-  properties: {
-    adminUserEnabled: false
-  }
-}
+// resource devDeveloperContainerRegistry 'Microsoft.ContainerRegistry/registries@2022-12-01' = {
+//   name: containerRegistryName
+//   location: location
+//   identity: {
+//     type: 'SystemAssigned'
+//   }
+//   sku: {
+//     name: 'Basic'
+//   }
+//   properties: {
+//     adminUserEnabled: false
+//   }
+// }
 
-// Template Reference: https://learn.microsoft.com/en-us/azure/templates/microsoft.containerservice/managedclusters?pivots=deployment-language-bicep
-// Manage Node Pools Reference: https://learn.microsoft.com/en-us/azure/aks/use-system-pools?tabs=azure-cli
-resource devDeveloperCluster 'Microsoft.ContainerService/managedClusters@2024-09-01' = {
-  location: location
-  name: clusterName
-  sku: {
-    name: 'Base'
-    tier: 'Free'
-  }
-  identity: {
-    type: 'SystemAssigned'
-  }
-  properties: {
-    agentPoolProfiles: [
-      {
-        count: nodeCount
-        name: 'nodepool1'
-        osDiskSizeGB: 30
-        osType: 'Linux'
-        vmSize: nodeSize
-        mode: 'System'
-      }
-    ]
-    dnsPrefix: 'minimalaks'
-  }
-}
+// // Template Reference: https://learn.microsoft.com/en-us/azure/templates/microsoft.containerservice/managedclusters?pivots=deployment-language-bicep
+// // Manage Node Pools Reference: https://learn.microsoft.com/en-us/azure/aks/use-system-pools?tabs=azure-cli
+// resource devDeveloperCluster 'Microsoft.ContainerService/managedClusters@2024-09-01' = {
+//   location: location
+//   name: clusterName
+//   sku: {
+//     name: 'Base'
+//     tier: 'Free'
+//   }
+//   identity: {
+//     type: 'SystemAssigned'
+//   }
+//   properties: {
+//     agentPoolProfiles: [
+//       {
+//         count: nodeCount
+//         name: 'nodepool1'
+//         osDiskSizeGB: 30
+//         osType: 'Linux'
+//         vmSize: nodeSize
+//         mode: 'System'
+//       }
+//     ]
+//     dnsPrefix: 'minimalaks'
+//   }
+// }
 
 // Reference: https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers?pivots=deployment-language-bicep
 resource devDeveloperSqlServer 'Microsoft.Sql/servers@2022-05-01-preview' = {
@@ -63,8 +69,8 @@ resource devDeveloperSqlServer 'Microsoft.Sql/servers@2022-05-01-preview' = {
     type: 'SystemAssigned'
   }
   properties: {
-    minimalTlsVersion: '1.2'
-    publicNetworkAccess: 'Disabled'
+    administratorLogin: sqlAdministratorLogin
+    administratorLoginPassword: sqlAdministratorLoginPassword
   }
 }
 
@@ -79,4 +85,4 @@ resource sqlDB 'Microsoft.Sql/servers/databases@2022-05-01-preview' = {
   }
 }
 
-output aksPrincipalId string = devDeveloperCluster.identity.principalId
+// output aksPrincipalId string = devDeveloperCluster.identity.principalId

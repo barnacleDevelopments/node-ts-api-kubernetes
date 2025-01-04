@@ -6,10 +6,6 @@ param clusterName string = 'devdeveloper-aks-cluster'
 param nodeSize string = 'Standard_A2_v2'
 param nodeCount int = 1
 
-// SQL SERVER + DB
-param sqlServerName string = 'devdeveloper-sql-server'
-param sqlDBName string = 'devdeveloper-sql-db'
-
 // Container Registry
 param containerRegistryName string = 'devdeveloperregistry'
 
@@ -52,30 +48,6 @@ resource devDeveloperCluster 'Microsoft.ContainerService/managedClusters@2024-09
       }
     ]
     dnsPrefix: 'minimalaks'
-  }
-}
-
-// Reference: https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers?pivots=deployment-language-bicep
-resource devDeveloperSqlServer 'Microsoft.Sql/servers@2022-05-01-preview' = {
-  name: sqlServerName
-  location: location
-  identity: {
-    type: 'SystemAssigned'
-  }
-  properties: {
-    minimalTlsVersion: '1.2'
-    publicNetworkAccess: 'Disabled'
-  }
-}
-
-// Reference: https://learn.microsoft.com/en-us/azure/templates/microsoft.sql/servers/databases?pivots=deployment-language-bicep
-resource sqlDB 'Microsoft.Sql/servers/databases@2022-05-01-preview' = {
-  parent: devDeveloperSqlServer
-  name: sqlDBName
-  location: location
-  sku: {
-    name: 'Basic'
-    tier: 'Basic'
   }
 }
 

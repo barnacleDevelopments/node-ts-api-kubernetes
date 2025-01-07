@@ -11,7 +11,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.get("/flux", (req: Request, res: Response) => {
-  res.send("Welcome to the Node.js TypeScript API deployed using Flux!");
+  res.send("Welcome to the Node.js TypeScript API deployed using Flux!!");
 });
 
 // Start server

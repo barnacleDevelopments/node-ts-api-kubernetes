@@ -3,7 +3,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- master
+- version_2
 
 resources:
 - repo: self
@@ -14,7 +14,7 @@ variables:
   dockerRegistryServiceConnection: '766a7075-56b5-40d1-8d79-2d89a8710f11'
   imageRepository: 'node-ts-api'
   containerRegistry: 'devdeveloperregistry.azurecr.io'
-  dockerfilePath: '**/Dockerfile.dev'
+  dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'devdeveloperregistry41003ccd-auth'
 
@@ -43,37 +43,3 @@ stages:
 
     - upload: manifests
       artifact: manifests
-
-- stage: Deploy
-  displayName: Deploy stage
-  dependsOn: Build
-
-  jobs:
-  - deployment: Deploy
-    displayName: Deploy
-    pool:
-      name: $(vmImageName)
-    environment: 'barnacleDevelopmentskubernetestest-1974.default'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: KubernetesManifest@0
-            displayName: Create imagePullSecret
-            inputs:
-              action: createSecret
-              secretName: $(imagePullSecret)
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
-
-          - task: KubernetesManifest@0
-            displayName: Deploy to Kubernetes cluster
-            inputs:
-              action: deploy
-              manifests: |
-                $(Pipeline.Workspace)/manifests/deployment.yml
-                $(Pipeline.Workspace)/manifests/service.yml
-              imagePullSecrets: |
-                $(imagePullSecret)
-              containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
-

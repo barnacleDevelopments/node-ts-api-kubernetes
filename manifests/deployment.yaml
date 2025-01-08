@@ -15,6 +15,5 @@ spec:
       containers:
       - name: nodetsapi
         image: devdeveloperregistry.azurecr.io/node-ts-api:60
-        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000

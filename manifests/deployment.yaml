@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: nodetsapi
-        image: devdeveloperregistry.azurecr.io/node-ts-api
+        image: devdeveloperregistry.azurecr.io/node-ts-api:60
         ports:
         - containerPort: 3000

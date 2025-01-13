@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-ts-api-mysql
+  labels:
+    app: node-ts-api
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: node-ts-api 
+    tier: mysql
+  clusterIP: None
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  labels:
+    app: node-ts-api
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
+# Need to add a PersistentVolume from Azure
+# https://github.com/kubernetes-sigs/azurefile-csi-driver/blob/master/docs/install-csi-driver-v1.31.0.md
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-ts-api-mysql
+  labels:
+    app: node-ts-api
+spec:
+  selector:
+    matchLabels:
+      app: node-ts-api
+      tier: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: node-ts-api 
+        tier: mysql
+    spec:
+      containers:
+      - image: mysql:8.0
+        name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
+        - name: MYSQL_DATABASE
+          value: node-ts-api 
+        - name: MYSQL_USER
+          value: node-ts-api
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim

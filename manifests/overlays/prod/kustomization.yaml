@@ -1,0 +1,7 @@
+resources:
+- ../base
+namePrefix: prod-
+images:
+  - name: node-ts-api
+    newName: devdeveloperregistry.azurecr.io/node-ts-api # {"$imagepolicy": "flux-system:node-ts-api"}
+    newTag: "0"

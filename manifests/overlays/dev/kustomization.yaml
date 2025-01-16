@@ -1,0 +1,7 @@
+resources:
+- ../../base
+namePrefix: dev-
+images:
+  - name: node-ts-api:latest
+    newName: mycluster-registry.localhost:40573/node-ts-api
+    newTag: local

@@ -16,7 +16,7 @@ spec:
       containers:
         - name: nodetsapi
           imagePullPolicy: IfNotPresent
-          image: devdeveloperregistry.azurecr.io/node-ts-api:0 # {"$imagepolicy": "flux-system:node-ts-api"} <=== add this comment and change intial tag
+          image: node-ts-api:latest
           ports:
             - containerPort: 3000
 ---

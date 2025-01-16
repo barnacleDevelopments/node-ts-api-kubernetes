@@ -9,7 +9,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.get("/flux", (req: Request, res: Response) => {
-  res.send("Welcome to Flux!");
+  res.send("Welcome to Flux!!");
 });
 // Start server
 const PORT = process.env.PORT || 3000;

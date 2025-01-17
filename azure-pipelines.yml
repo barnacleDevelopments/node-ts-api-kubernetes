@@ -1,0 +1,39 @@
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- version_2
+
+resources:
+- repo: self
+
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: '50289290-bfd3-415e-b399-bad5322c120b'
+  imageRepository: 'node-ts-api'
+  containerRegistry: 'devdeveloperregistry.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile.dev'
+  tag: '$(Build.BuildId)'
+
+  # Agent VM image name
+  name: 'Personal Laptop'
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      name: $(name)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)

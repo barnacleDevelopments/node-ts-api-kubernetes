@@ -1,6 +1,5 @@
 /dist
 /node_modules
-/.terraform/**
-/terraform.tfstate
-/terraform.tfstate.backup
-/.terraform.tfstate.lock.info
+/iac/.terraform/**
+/iac/terraform.tfstate
+/iac/terraform.tfstate.backup

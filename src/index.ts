@@ -12,6 +12,10 @@ app.get("/flux", (req: Request, res: Response) => {
   res.send("Welcome to flux!!!!!");
 });
 
+app.get("/flux-2", (req: Request, res: Response) => {
+  res.send("Welcome to flux 2!!!!!");
+});
+
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -8,7 +8,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to the Node.js TypeScript API!");
 });
 
-app.get("/flux", (req: Request, res: Response) => {
+app.get("/flux-2", (req: Request, res: Response) => {
   res.send("Welcome to the Node.js Flux API!");
 });
 

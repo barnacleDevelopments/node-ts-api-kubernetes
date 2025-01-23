@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: version_3
+    branch: master
   url: https://github.com/barnacleDevelopments/kubernetes-test
   secretRef:
     name: flux-git-auth
@@ -35,9 +35,9 @@ spec:
   git:
     checkout:
       ref:
-        branch: version_3
+        branch: master
     push:
-      branch: version_3
+      branch: master
     commit:
       author:
         email: devin@mailfence.com

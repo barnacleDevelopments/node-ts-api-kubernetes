@@ -1,0 +1,60 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: node-ts-api
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  ref:
+    branch: version_2
+  url: https://github.com/barnacleDevelopments/kubernetes-test
+  secretRef:
+    name: kubernetes-test-auth
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: node-ts-api
+  namespace: flux-system
+spec:
+  image: devdeveloperregistry.azurecr.io/node-ts-api #<=== this is the address of our image
+  interval: 1h #<=== we are checking every hour
+  provider: azure
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageUpdateAutomation
+metadata:
+  name: node-ts-api-automation
+  namespace: flux-system
+spec:
+  interval: 5m #<=== check the repository every 5 minutes for changes
+  sourceRef:
+    kind: GitRepository
+    name: node-ts-api #<=== use the node-ts-api GitRepository object
+  git:
+    checkout:
+      ref:
+        branch: version_2
+    push:
+      branch: version_2
+    commit:
+      author:
+        email: devin@mailfence.com
+        name: devin
+  update:
+    path: ./manifests/overlays/prod
+    strategy: Setters
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: node-ts-api
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: node-ts-api # <=== reference to the ImageRepository object.
+  policy:
+    numerical:
+      order: asc # <=== the image we would like to select (the latest image in this case)
+---

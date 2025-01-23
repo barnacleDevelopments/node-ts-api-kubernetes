@@ -32,3 +32,12 @@ spec:
     selector:
         app: node-ts-api
 ---
+kind: StorageClass
+metadata:
+  name: azurefile
+provisioner: kubernetes.io/azure-file
+parameters:
+  skuName: Standard_LRS
+  location: canadaeast
+  storageAccount: devdeveloperstorage
+---

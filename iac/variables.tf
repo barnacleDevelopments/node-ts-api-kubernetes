@@ -44,7 +44,7 @@ variable "ssh_key_name" {
 
 variable "azurerm_kubernetes_cluster_dns_name" {
   description = "The name of the cluster_dns_name."
-  default     = "devdeveloper"
+  default     = "devdeveloper-aks-cluster"
 }
 
 variable "azurerm_kubernetes_cluster_dns_prefix" {

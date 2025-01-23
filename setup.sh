@@ -70,6 +70,8 @@ flux create kustomization flux-kubernetes-app \
   --health-check-timeout="3m" \
   --export > ./clusters/$FLUX_CLUSTER_NAME/flux-node-ts-api-kustomization.yaml
 
+kubectl create secret generic flux-git-auth --namespace flux-system --from-literal=username=barnacleDevelopments --from-literal=password=$GITHUB_TOKEN
+
 git add -A && git commit -m "Add flux-kubernetes-test Kustomization"
 git push
 cd ../

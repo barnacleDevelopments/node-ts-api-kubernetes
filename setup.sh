@@ -2,8 +2,6 @@
 
 # BEFORE RUNNING
 # Set Environment Variables
-# export GITHUB_TOKEN=<gh-token>
-
 
 # GIT variables
 GITHUB_USER="barnacleDevelopments"
@@ -49,17 +47,17 @@ flux bootstrap github \
   --components-extra=$FLUX_COMPONENTS \
   --read-write-key=true
 
-git clone https://github.com/$GITHUB_USER/flux-kubernetes-app
+git clone "git@github.com:$GITHUB_USER/$FLUX_REPO_NAME.git"
 
-cd flux-kubernetes-app
+cd $FLUX_REPO_NAME
 
 flux create source git flux-kubernetes-app \
   --url=$NODE_TS_API_GIT_URL \
   --branch=$NODE_TS_API_BRANCH \
   --interval=$NODE_TS_API_INTERVAL \
-  --export > ./clusters/$CLUSTER_NAME/flux-node-ts-api-source.yaml
+  --export > ./clusters/$FLUX_CLUSTER_NAME/flux-node-ts-api-source.yaml
 
-cat ./flux-config.yaml > ./clusters/$FLUX_CLUSTER_NAME/flux-node-ts-api-source.yaml
+cat ../flux-config.yaml > ./clusters/$FLUX_CLUSTER_NAME/flux-node-ts-api-source.yaml
 
 flux create kustomization flux-kubernetes-app \
   --target-namespace="default" \
@@ -75,4 +73,4 @@ flux create kustomization flux-kubernetes-app \
 git add -A && git commit -m "Add flux-kubernetes-test Kustomization"
 git push
 cd ../
-rm -r $FLUX_CLUSTER_NAME
+rm -r $FLUX_REPO_NAME

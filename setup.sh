@@ -15,7 +15,7 @@ FLUX_CLUSTER_NAME="app-cluster"
 # Define node-ts-api variables
 NODE_TS_API_BRANCH="version_3"
 NODE_TS_API_NAME="node-ts-api"
-NODE_TS_API_GIT_URL="https://github.com/barnacleDevelopments/kubernetes-test"
+NODE_TS_API_GIT_URL="https://github.com/barnacleDevelopments/node-ts-api-kubernetes"
 NODE_TS_API_INTERVAL="1m"
 
 # Azure Variables

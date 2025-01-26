@@ -8,7 +8,7 @@ spec:
   interval: 1m0s
   ref:
     branch: master
-  url: https://github.com/barnacleDevelopments/kubernetes-test
+  url: https://github.com/barnacleDevelopments/node-ts-api-kubernetes
   secretRef:
     name: flux-git-auth
 ---

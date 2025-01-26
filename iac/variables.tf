@@ -29,6 +29,7 @@ variable "username" {
 }
 
 variable "location" {
+  default     = "canadaeast"
   description = "Azure region where resources will be deployed."
 }
 

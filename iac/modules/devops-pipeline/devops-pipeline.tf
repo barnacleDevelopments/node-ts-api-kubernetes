@@ -1,3 +1,8 @@
+# Set variables
+# export AZDO_PERSONAL_ACCESS_TOKEN=<Personal Access Token>
+# export AZDO_ORG_SERVICE_URL=https://dev.azure.com/dev-developer
+# Docs: https://registry.terraform.io/providers/ni/azuredevops/latest/docs
+#
 terraform {
   required_version = ">=1.0"
 
@@ -19,10 +24,6 @@ variable "devops_pat" {
   sensitive = true
 }
 
-# Set variables
-# export AZDO_PERSONAL_ACCESS_TOKEN=<Personal Access Token>
-# export AZDO_ORG_SERVICE_URL=https://dev.azure.com/dev-developer
-# Docs: https://registry.terraform.io/providers/ni/azuredevops/latest/docs
 resource "azuredevops_project" "kubernetes_test" {
   name               = "Kubernetes Test"
   visibility         = "public"
@@ -58,7 +59,7 @@ resource "azuredevops_build_definition" "node_ts_api_pipeline" {
     repo_id             = "barnacleDevelopments/node-ts-api-kubernetes"
     branch_name         = "main"
     service_connection_id = azuredevops_serviceendpoint_github.github_connection.id
+    yml_path = "./Dockerfile.dev"
   }
 
-  yaml_path = "./Dockerfile.dev"
 }

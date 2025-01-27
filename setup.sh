@@ -2,6 +2,9 @@
 
 # BEFORE RUNNING
 # Set Environment Variables
+# export AZDO_PERSONAL_ACCESS_TOKEN=<Personal Access Token>
+# export AZDO_ORG_SERVICE_URL=https://dev.azure.com/dev-developer
+# export GITHUB_TOKEN=
 
 # GIT variables
 GITHUB_USER="barnacleDevelopments"

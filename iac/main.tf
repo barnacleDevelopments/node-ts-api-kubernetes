@@ -8,7 +8,6 @@ variable "devops_pat" {
   sensitive = true
 }
 
-
 module "azure-resources" {
   source              = "./modules/azure-resources"
   providers = {

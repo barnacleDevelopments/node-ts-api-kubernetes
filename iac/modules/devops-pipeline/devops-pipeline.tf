@@ -19,7 +19,9 @@ variable "devops_pat" {
   sensitive = true
 }
 
-
+# Set variables
+# export AZDO_PERSONAL_ACCESS_TOKEN=<Personal Access Token>
+# export AZDO_ORG_SERVICE_URL=https://dev.azure.com/dev-developer
 # Docs: https://registry.terraform.io/providers/ni/azuredevops/latest/docs
 resource "azuredevops_project" "kubernetes_test" {
   name               = "Kubernetes Test"

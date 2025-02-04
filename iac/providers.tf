@@ -14,6 +14,10 @@ terraform {
       source  = "hashicorp/time"
       version = "0.9.1"
     }
+    azuredevops = {
+      source = "microsoft/azuredevops"
+      version = ">=0.1.0"
+    }
   }
 }
 

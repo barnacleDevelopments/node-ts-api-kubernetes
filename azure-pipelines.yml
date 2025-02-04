@@ -8,17 +8,6 @@ trigger:
 resources:
 - repo: self
 
-variables:
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'b54fb443-50ca-48b0-b533-8631dc412164'
-  imageRepository: 'node-ts-api'
-  containerRegistry: 'devdeveloperregistry.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile.dev'
-  tag: '$(Build.BuildId)'
-
-  # Agent VM image name
-  vmImageName: 'Personal Laptop'
-
 stages:
 - stage: Build
   displayName: Build and push stage

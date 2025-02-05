@@ -38,7 +38,7 @@ resource "azuredevops_serviceendpoint_dockerregistry" "docker_registry" {
 }
 
 resource "azuredevops_variable_group" "build_variables" {
-  project_id   = azuredevops_project.docker_registry.id
+  project_id   = azuredevops_project.kubernetes_test.id
   name         = "Example Pipeline Variables"
   description  = "Managed by Terraform"
   allow_access = true

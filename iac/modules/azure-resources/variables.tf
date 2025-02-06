@@ -52,3 +52,4 @@ variable "azurerm_kubernetes_cluster_dns_prefix" {
   description = "The name of the cluster_dns_prefi."
   default     = "cluster"
 }
+

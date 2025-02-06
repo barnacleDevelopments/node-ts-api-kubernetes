@@ -1,12 +1,6 @@
 terraform {
   required_version = ">=1.0"
 
-  cloud {
-    organization = "devdeveloper"
-    workspaces {
-      name = "test-workplace"
-    }
-  }
   required_providers {
     azapi = {
       source  = "azure/azapi"

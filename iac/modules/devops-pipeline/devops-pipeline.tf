@@ -19,7 +19,7 @@ provider "azuredevops" {
 }
 
 resource "azuredevops_project" "kubernetes_test" {
-  name               = "KubernetesTraining"
+  name               = "KubernetesTest"
   visibility         = "private"
 }
 
@@ -67,6 +67,11 @@ resource "azuredevops_variable_group" "build_variables" {
     name  = "vmImageName"
     value = "Personal Laptop"
   }
+
+  variable {
+    name  = "dockerRegistryServiceConnection"
+    value = azuredevops_serviceendpoint_dockerregistry.docker_registry.id
+  }
 }
 
 resource "azuredevops_build_definition" "node_ts_api_pipeline" {
@@ -85,7 +90,7 @@ resource "azuredevops_build_definition" "node_ts_api_pipeline" {
   repository {
     repo_type           = "GitHub"
     repo_id             = "barnacleDevelopments/node-ts-api-kubernetes"
-    branch_name         = "main"
+    branch_name         = "master"
     service_connection_id = azuredevops_serviceendpoint_github.github_connection.id
     yml_path    = "azure-pipelines.yml"
   }

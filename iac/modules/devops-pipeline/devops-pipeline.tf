@@ -23,6 +23,14 @@ resource "azuredevops_project" "kubernetes_test" {
   visibility         = "private"
 }
 
+resource "azuredevops_serviceendpoint_github" "github_connection" {
+  project_id            = azuredevops_project.kubernetes_test.id
+  service_endpoint_name = "GitHub Connection"
+  auth_personal {
+    personal_access_token = var.GITHUB_PERSONAL_ACCESS_TOKEN
+  }
+}
+
 resource "azuredevops_serviceendpoint_dockerregistry" "docker_registry" {
   project_id            = azuredevops_project.kubernetes_test.id
   service_endpoint_name = "Container Registry"

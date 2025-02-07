@@ -23,18 +23,20 @@ resource "azuredevops_project" "kubernetes_test" {
   visibility         = "private"
 }
 
-resource "azuredevops_serviceendpoint_github" "github_connection" {
-  project_id            = azuredevops_project.kubernetes_test.id
-  service_endpoint_name = "GitHub Connection"
-  auth_personal {
-    personal_access_token = var.GITHUB_PERSONAL_ACCESS_TOKEN
-  }
-}
-
 resource "azuredevops_serviceendpoint_dockerregistry" "docker_registry" {
   project_id            = azuredevops_project.kubernetes_test.id
   service_endpoint_name = "Container Registry"
-  docker_registry       = "devdeveloperregistry.azurecr.io"
+  docker_registry       = "https://devdeveloperregistry.azurecr.io"
+  registry_type         = "Others"
+  docker_username       = var.azurerm_container_registry_admin_username
+  docker_password       = var.azurerm_container_registry_admin_password
+}
+
+resource "azuredevops_pipeline_authorization" "docker_authorization" {
+  project_id  = azuredevops_project.kubernetes_test.id
+  resource_id = azuredevops_serviceendpoint_dockerregistry.docker_registry.id
+  type        = "endpoint"
+  pipeline_id  =   azuredevops_build_definition.node_ts_api_pipeline.id
 }
 
 resource "azuredevops_variable_group" "build_variables" {

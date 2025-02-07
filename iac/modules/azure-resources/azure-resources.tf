@@ -28,7 +28,7 @@ resource "azurerm_container_registry" "acr" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = var.location
   sku                 = "Basic"
-  admin_enabled       = false
+  admin_enabled       = true
 
   identity {
     type = "SystemAssigned"
@@ -39,6 +39,13 @@ resource "azurerm_container_registry" "acr" {
   }
 }
 
+output "azurerm_container_registry_admin_username" {
+  value = azurerm_container_registry.acr.admin_username
+}
+
+output "azurerm_container_registry_admin_password" {
+  value = azurerm_container_registry.acr.admin_password
+}
 # Kubernetes Cluster
 resource "azurerm_kubernetes_cluster" "k8s" {
   name                = var.azurerm_kubernetes_cluster_dns_name

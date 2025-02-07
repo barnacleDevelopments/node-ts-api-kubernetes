@@ -43,4 +43,6 @@ module "devops-pipeline" {
   AZDO_ORG_SERVICE_URL        = var.AZDO_ORG_SERVICE_URL
   AZDO_PERSONAL_ACCESS_TOKEN  = var.AZDO_PERSONAL_ACCESS_TOKEN
   GITHUB_PERSONAL_ACCESS_TOKEN = var.GITHUB_PERSONAL_ACCESS_TOKEN
+  azurerm_container_registry_admin_username = module.azure-resources.azurerm_container_registry_admin_username
+  azurerm_container_registry_admin_password  = module.azure-resources.azurerm_container_registry_admin_password
 }

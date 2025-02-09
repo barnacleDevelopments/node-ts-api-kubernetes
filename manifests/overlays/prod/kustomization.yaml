@@ -4,4 +4,4 @@ namePrefix: prod-
 images:
 - name: node-ts-api
   newName: devdeveloperregistry.azurecr.io/node-ts-api # {"$imagepolicy": "flux-system:node-ts-api:name"}
-  newTag: "117" # {"$imagepolicy": "flux-system:node-ts-api:tag"}
+  newTag: "139" # {"$imagepolicy": "flux-system:node-ts-api:tag"}
